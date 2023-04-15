@@ -14,4 +14,7 @@ func NewBar() *Bar {
 	return &Bar{}
 }
 
-
+type FooBar struct {
+	*Foo
+	*Bar
+}
