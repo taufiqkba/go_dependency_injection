@@ -43,6 +43,6 @@ func InitializedHelloService() *HelloService {
 }
 
 func InitializedFooBar() *FooBar {
-	wire.Build(NewFoo, wire.Struct(new(FooBar), "Foo"))
+	wire.Build(NewFoo, NewBar, wire.Struct(new(FooBar), "*"))
 	return nil
 }

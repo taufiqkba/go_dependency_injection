@@ -7,7 +7,6 @@
 package simple
 
 import (
-	"errors"
 	"github.com/google/wire"
 )
 
@@ -44,8 +43,6 @@ func InitializedHelloService() *HelloService {
 	return helloService
 }
 
-// Injectors from simple.go:
-
 func InitializedFooBar() *FooBar {
 	foo := NewFoo()
 	bar := NewBar()
@@ -68,29 +65,3 @@ var barSet = wire.NewSet(NewBarRepository, NewBarService)
 var helloSet = wire.NewSet(
 	NewSayHelloImpl, wire.Bind(new(SayHello), new(*SayHelloImpl)),
 )
-
-// simple.go:
-
-type SimpleRepository struct {
-	Error bool
-}
-
-type SimpleService struct {
-	*SimpleRepository
-}
-
-func NewSimpleRepository(isError bool) *SimpleRepository {
-	return &SimpleRepository{
-		Error: isError,
-	}
-}
-
-func NewSimpleService(repository *SimpleRepository) (*SimpleService, error) {
-	if repository.Error {
-		return nil, errors.New("failed create service")
-	} else {
-		return &SimpleService{
-			SimpleRepository: repository,
-		}, nil
-	}
-}
